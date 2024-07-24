@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #007bff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #0056b3;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color: #003f8a;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .candidate-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .candidate-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .candidate-item:last-child {
+            border-bottom: none;
+        }
+
+        .candidate-image {
+            flex-shrink: 0;
+            margin-right: 15px;
+        }
+
+        .candidate-image img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .candidate-info {
+            flex-grow: 1;
+        }
+
+        .candidate-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .candidate-votes {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Dashboard</h1>
+        <div class="nav-links">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Results</h2>
+        <ul class="candidate-list">
+            {% for candidate in candidates %}
+            <li class="candidate-item">
+                {% if candidate.image %}
+                <div class="candidate-image">
+                    <img src="{{ candidate.image.url }}" alt="{{ candidate.name }}">
+                </div>
+                {% endif %}
+                <div class="candidate-info">
+                    <p class="candidate-name">{{ candidate.name }}</p>
+                    <p class="candidate-votes">{{ candidate.votes }} votes</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
